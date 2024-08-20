@@ -16,14 +16,19 @@ const Login = () => {
         }
         const url = "http://127.0.0.1:5000/login"
         const options = {
-            method: "GET",
+            method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(data)
         }
+        console.log(data)
         const response = await fetch(url, options)
-        if(response.status !== 200){
+        console.log(response.message)
+        if(response.status === 200){
+
+        }else{
+
         }
     }
 
@@ -41,6 +46,7 @@ const Login = () => {
                 <label>agree to terms and conditions</label>
                 <input type="checkbox" id="agree"/>
             </div>
+            <button type="submit"></button>
         </form>
     );
 };

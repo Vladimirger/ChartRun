@@ -28,15 +28,15 @@ def login():
     username = data['username']
     password = data['password']
     if not username or not password:
-        return jsonify({'message': 'not enough parameters'}), 406
+        return jsonify({'message': 'not enough parameters'}), 400
     found_user = User.query.filter_by(username=username).first()
     if not found_user:
-        return jsonify({'message': 'invalid username'}), 406
+        return jsonify({'message': 'invalid username'}), 400
     if found_user.password == password:
         session['username'] = found_user.username
         return jsonify({'message': 'login successful'}), 200
     else:
-        return jsonify({'message': 'wrong password'}), 406
+        return jsonify({'message': 'wrong password'}), 400
 
 
 if __name__ == '__main__':
