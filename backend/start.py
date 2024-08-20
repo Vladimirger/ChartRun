@@ -1,4 +1,4 @@
-from flask import jsonify, request
+from flask import jsonify, request, session
 from config import db, app
 from models import User
 
@@ -18,8 +18,9 @@ def signup():
         db.session.commit()
     except Exception as e:
         return jsonify({'message': str(e)})
-
+    session['username'] = new_user.username
     return jsonify({'message': 'signup successful'})
+
 
 @app.route('/login', methods=['POST'])
 def login():
@@ -27,14 +28,16 @@ def login():
     username = data['username']
     password = data['password']
     if not username or not password:
-        return jsonify({'message': 'not enough parameters'})
+        return jsonify({'message': 'not enough parameters'}), 406
     found_user = User.query.filter_by(username=username).first()
     if not found_user:
-        return jsonify({'message': 'invalid username'})
+        return jsonify({'message': 'invalid username'}), 406
     if found_user.password == password:
-        pass
+        session['username'] = found_user.username
+        return jsonify({'message': 'login successful'}), 200
     else:
-        return jsonify({'message': 'wrong password'})
+        return jsonify({'message': 'wrong password'}), 406
+
 
 if __name__ == '__main__':
     with app.app_context():
