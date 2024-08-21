@@ -5,21 +5,25 @@ from models import User
 
 @app.route('/signup', methods=['POST'])
 def signup():
+
     data = request.get_json()
     username = data['username']
     password = data['password']
     email = data['email']
-
-    if not username or not password or not email:
-        return jsonify({'message': 'error'})
-    new_user = User(username, password, email)
+    agree = data['agree']
+    if not username or not password or not email or not agree:
+        print("ASD")
+        return jsonify({'message': 'error'}), 400
+    new_user = User(username, email, password)
     try:
         db.session.add(new_user)
         db.session.commit()
     except Exception as e:
-        return jsonify({'message': str(e)})
+        print(f"{username}, {password}, {email}, {e}")
+        return jsonify({'message': str(e)}), 400
     session['username'] = new_user.username
-    return jsonify({'message': 'signup successful'})
+    print("sucessfull")
+    return jsonify({'message': 'signup successful'}), 200
 
 
 @app.route('/login', methods=['POST'])
@@ -42,4 +46,5 @@ def login():
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
+    app.secret_key = 'super secret key'
     app.run(debug=True)

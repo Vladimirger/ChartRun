@@ -2,12 +2,11 @@ import {useState} from "react";
 const Login = () => {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
-    let agree = false
     const onSubmit = async(e) =>{
         //Prevents page refresh
         e.preventDefault()
 
-        agree = document.getElementById("agree").checked === true;
+        const agree = document.getElementById("agree").checked === true;
 
         const data = {
             username,
