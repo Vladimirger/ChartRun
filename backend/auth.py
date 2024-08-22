@@ -1,12 +1,12 @@
-from flask import Blueprint, request
-from models import User
-from flask_login import login_required
+from flask import Blueprint
 from flask import jsonify, request, session
+from flask_login import login_required
+
 from __init__ import db
 from models import User
 
-
 auth = Blueprint('auth', __name__)
+
 
 @auth.route('/api/login', methods=['GET', 'POST'])
 def login():
@@ -33,21 +33,18 @@ def logout():
 
 @auth.route('/api/sign-up', methods=['GET', 'POST'])
 def signup():
-
     data = request.get_json()
     username = data['username']
     password = data['password']
+    confirm_password = data['confirmPassword']
     email = data['email']
-    agree = data['agree']
-    if not username or not password or not email or not agree:
-        print("ASD")
+    if not username or not password or not email or not confirm_password or not confirm_password == password:
         return jsonify({'message': 'error'}), 400
     new_user = User(username, email, password)
     try:
         db.session.add(new_user)
         db.session.commit()
     except Exception as e:
-        print(f"{username}, {password}, {email}, {e}")
         return jsonify({'message': str(e)}), 400
     session['username'] = new_user.username
     print("sucessfull")
