@@ -1,11 +1,12 @@
 import { useState } from 'react'
 import './App.css'
-import Login from "./pages/LoginPage/Login.jsx";
-import SignUp from "./pages/SignUp.jsx";
+import Navbar from "./components/Navbar.jsx";
+import HeroSection from "./components/HeroSection.jsx";
 function App() {
   return (
     <>
-      <SignUp></SignUp>
+      <Navbar></Navbar>
+      <HeroSection></HeroSection>
     </>
   )
 }
