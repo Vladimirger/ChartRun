@@ -1,5 +1,4 @@
-from config import db
-
+from __init__ import db
 
 class User(db.Model):
     username = db.Column(db.String(50), primary_key=True, unique=True, nullable=False)
