@@ -3,11 +3,11 @@ import "../styles/Home.css";
 import { Link } from "react-router-dom";
 
 const Home = () => {
-  return (
-    <section className="">
+    return (
+      <section className="">
 
-    </section>
-  );
+      </section>
+    );
 };
 
 export default Home;
