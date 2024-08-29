@@ -3,26 +3,36 @@ from flask import jsonify, request, session
 from flask_login import login_required
 
 from __init__ import db
-from models import User
+from models import User, Problem, Submission
 
 auth = Blueprint('auth', __name__)
 
 
 @auth.route('/api/login', methods=['GET', 'POST'])
 def login():
-    data = request.get_json()
-    username = data['username']
-    password = data['password']
-    if not username or not password:
-        return jsonify({'message': 'not enough parameters'}), 400
-    found_user = User.query.filter_by(username=username).first()
-    if not found_user:
-        return jsonify({'message': 'invalid username'}), 400
-    if found_user.password == password:
-        session['username'] = found_user.username
-        return jsonify({'message': 'login successful'}), 200
-    else:
-        return jsonify({'message': 'wrong password'}), 400
+    user = User(username="johndoe", email="john@example.com", password="securepassword")
+    db.session.add(user)
+    db.session.commit()
+    problem = Problem(name="Two Sum", solved=False, last="", user_id="johndoe")
+    db.session.add(problem)
+    db.session.commit()
+    submission = Submission(number=1, work=True, code="print('Hello World')", problem_name="Two Sum")
+    db.session.add(submission)
+    db.session.commit()
+
+    # data = request.get_json()
+    # username = data['username']
+    # password = data['password']
+    # if not username or not password:
+    #     return jsonify({'message': 'not enough parameters'}), 400
+    # found_user = User.query.filter_by(username=username).first()
+    # if not found_user:
+    #     return jsonify({'message': 'invalid username'}), 400
+    # if found_user.password == password:
+    #     session['username'] = found_user.username
+    #     return jsonify({'message': 'login successful'}), 200
+    # else:
+    #     return jsonify({'message': 'wrong password'}), 400
 
 
 @auth.route('/api/logout')
@@ -47,5 +57,5 @@ def signup():
     except Exception as e:
         return jsonify({'message': str(e)}), 400
     session['username'] = new_user.username
-    print("sucessfull")
+    print("successful")
     return jsonify({'message': 'signup successful'}), 200

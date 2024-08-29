@@ -1,0 +1,27 @@
+{
+  "AplusB": {
+    "id": 1,
+    "exe": "AplusB.exe",
+    "input_requirements": "int int",
+    "extra_requirements": "N"
+  },
+  "AminusB": {
+    "id": 2,
+    "exe": "AminusB.exe",
+    "input_requirements": "int int",
+    "extra_requirements": "N"
+  },
+  "AtimesB": {
+    "id": 3,
+    "exe": "AtimesB.exe",
+    "input_requirements": "int int",
+    "extra_requirements": "N"
+  },
+
+  "AdividedB": {
+    "id": 4,
+    "exe": "AdividedB.exe",
+    "input_requirements": "int int",
+    "extra_requirements": "Y"
+  }
+}
