@@ -26,20 +26,8 @@ const SignUp = () => {
             },
             body: JSON.stringify(data)
         };
-
-        try {
-            const response = await fetch(url, options);
-
-
-
-            const result = await response.json(); // Parse the response as JSON
-            console.log(result); // Log the result for debugging
-
-            // Handle success scenario here (e.g., show a success message)
-        } catch (error) {
-            console.error("Error:", error); // Log error to the console
-            setError(error.message); // Set the error state to show error messages to the user
-        }
+        const response = await fetch(url, options)
+        console.log(response.status)
     };
 
     return (

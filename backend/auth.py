@@ -1,14 +1,12 @@
 from flask import Blueprint
 from flask import jsonify, request, session
-from flask_login import login_required
-
 from __init__ import db
 from models import User, Problem, Submission
 
 auth = Blueprint('auth', __name__)
 
 
-@auth.route('/api/login', methods=['GET', 'POST'])
+@auth.route('/api/login', methods=['POST'])
 def login():
     user = User(username="johndoe", email="john@example.com", password="securepassword")
     db.session.add(user)
@@ -35,13 +33,7 @@ def login():
     #     return jsonify({'message': 'wrong password'}), 400
 
 
-@auth.route('/api/logout')
-@login_required
-def logout():
-    pass
-
-
-@auth.route('/api/sign-up', methods=['GET', 'POST'])
+@auth.route('/api/sign-up', methods=['POST'])
 def signup():
     data = request.get_json()
     username = data['username']
