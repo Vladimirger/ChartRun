@@ -27,6 +27,7 @@ const SignUp = () => {
             body: JSON.stringify(data)
         };
         const response = await fetch(url, options)
+        console.log("ASD")
         console.log(response.status)
     };
 

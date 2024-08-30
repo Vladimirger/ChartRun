@@ -6,8 +6,8 @@ class User(db.Model):
     email = db.Column(db.String(50), unique=True, nullable=False)
     password = db.Column(db.String(50), nullable=False)
 
-    problems = db.relationship('Problem', backref='user', lazy=True)
-    submissions = db.relationship('Submission', backref='user', lazy=True)
+    # problems = db.relationship('Problem', backref='user', lazy=True)
+    # submissions = db.relationship('Submission', backref='user', lazy=True)
 
     def to_json(self):
         return {
