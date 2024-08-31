@@ -4,44 +4,52 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem 2rem;
+    padding: 1rem 4%;
     background-color: #ffffff;
-    font-family: "Inter";
-  }
-  
-  .logo img {
-    width: 120px;
-  }
-  
-  .nav-links {
+    font-family: "Inter", sans-serif;
+}
+
+.logo img {
+    width: 8vw; /* Adjusts dynamically to viewport width */
+}
+
+.nav-links {
     display: flex;
     list-style: none;
     gap: 2rem;
-  }
-  
-  .nav-links li {
+}
+
+.nav-links li {
     font-size: 1rem;
     font-weight: 500;
-  }
-  
-  .nav-links a {
+}
+
+.nav-links a {
     text-decoration: none;
     color: #333333;
-  }
-  
-  .auth-buttons {
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: #000000;
+}
+
+.auth-buttons {
     display: flex;
     gap: 1rem;
-  }
-  
-  .login-btn {
+}
+
+.login-btn {
     font-size: 1rem;
     font-weight: 500;
     color: #333333;
     text-decoration: none;
-  }
-  
-  .signup-btn {
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    transition: background-color 0.3s ease;
+}
+
+.signup-btn {
     font-size: 1rem;
     font-weight: 500;
     color: #ffffff;
@@ -49,9 +57,9 @@
     padding: 0.5rem 1.5rem;
     border-radius: 0.25rem;
     text-decoration: none;
-  }
-  
-  .signup-btn:hover {
+    transition: background-color 0.3s ease;
+}
+
+.signup-btn:hover {
     background-color: #333333;
-  }
-  
+}

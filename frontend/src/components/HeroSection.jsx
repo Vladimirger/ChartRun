@@ -12,15 +12,15 @@ const HeroSection = () => {
         </div>
         <div className="hero-icons">
           <div className="icon-item">
-            <i className="icon-code-visual"></i>
+            <img src="src/assets/speed.png"></img>
             <p>Code Visually with Speed</p>
           </div>
           <div className="icon-item">
-            <i className="icon-automate-workflows"></i>
+            <img src="src/assets/workflow.png"></img>
             <p>Automate Complex Workflows</p>
           </div>
           <div className="icon-item">
-            <i className="icon-streamline-process"></i>
+            <img src="src/assets/coding.png"></img>
             <p>Streamline Development Process</p>
           </div>
         </div>
