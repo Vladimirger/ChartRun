@@ -6,22 +6,25 @@ const HeroSection = () => {
     <section className="hero-section">
       <div className="container">
         <div className="hero-content">
-          <h1>Design, Build, and Code <br /> with Flowcharts</h1>
+          <h1><span className="first_line">Design, Build, and Code </span><br /> <span className="second_line">with Flowcharts<span/></span></h1>
           <p>Get done more, write better</p>
           <button className="cta-button">Try ChartRun</button>
         </div>
         <div className="hero-icons">
           <div className="icon-item">
-            <img src="src/assets/speed.png"></img>
-            <p>Code Visually with Speed</p>
+            <span className="circle"></span>
+            <img src="src/assets/speed.png" alt="speed icon" />
+            <span>Code Visually with Speed</span>
           </div>
           <div className="icon-item">
-            <img src="src/assets/workflow.png"></img>
-            <p>Automate Complex Workflows</p>
+            <span className="circle"></span>
+            <img src="src/assets/workflow.png" alt="workflow icon" />
+            <span>Automate Complex Workflows</span>
           </div>
           <div className="icon-item">
-            <img src="src/assets/coding.png"></img>
-            <p>Streamline Development Process</p>
+            <span className="circle"></span>
+            <img src="src/assets/coding.png" alt="coding icon" />
+            <span>Streamline Development Process</span>
           </div>
         </div>
       </div>

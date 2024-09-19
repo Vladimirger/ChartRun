@@ -1,14 +1,13 @@
 import { useState } from 'react'
 import './App.css'
-import Navbar from "./components/Navbar.jsx";
-import HeroSection from "./components/HeroSection.jsx";
+import Landing from './pages/Landing.jsx';
 function App() {
   return (
     <>
-      <Navbar></Navbar>
-      <HeroSection></HeroSection>
+      <Landing />
     </>
+    
   )
 }
 
-export default App
+export default App;

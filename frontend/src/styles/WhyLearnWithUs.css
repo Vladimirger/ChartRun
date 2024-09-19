@@ -1,0 +1,91 @@
+.why-learn-section {
+  padding: 5% 5%;
+  font-family: 'Inter', sans-serif;
+  max-width: 90rem;
+  margin: 0 auto;
+}
+
+.why-learn-section h2 {
+  font-size: 2.5rem;
+  color: #333;
+  text-align: center;
+  margin-bottom: 4rem;
+  font-weight: 600;
+}
+
+.feature-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+}
+
+.feature-item {
+  display: flex;
+  align-items: center;
+  gap: 5%;
+}
+
+.feature-item.reverse {
+  flex-direction: row-reverse;
+}
+
+.feature-image {
+  width: 45%;
+  aspect-ratio: 16 / 9;
+  background-color: #f0f0f0;
+  border-radius: 0.5rem;
+}
+
+.feature-content {
+  width: 45%;
+  position: relative;
+}
+
+.feature-icon {
+  position: absolute;
+  top: -2.5rem;
+  left: 0;
+  width: 2rem;
+  height: 2rem;
+  background-color: #00A86B;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.feature-content h3 {
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.feature-content p {
+  font-size: 1rem;
+  color: #666;
+  line-height: 1.5;
+}
+
+@media (max-width: 48rem) {
+  .feature-item,
+  .feature-item.reverse {
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .feature-image,
+  .feature-content {
+    width: 100%;
+  }
+
+  .feature-icon {
+    top: -3.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}

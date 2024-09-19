@@ -1,41 +1,50 @@
-.hero-section {
-  background-color: #f5fafe;
-  padding: 10vh 0;
-  text-align: center;
-}
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
-.container {
-  max-width: 80%;
-  margin: 0 auto;
+
+.hero-section {
+  background: linear-gradient(90deg, #E3FFFE 24%, #E6EDFD 78%);
+  padding: 8vh 5%;
+  text-align: center;
+  font-family: "Inter", sans-serif;
 }
 
 .hero-content h1 {
-  font-size: 4vw;
+  font-size: 3.5vw;
   font-weight: bold;
-  color: #003366;
   line-height: 1.2;
   margin-bottom: 2vh;
 }
 
+.first_line{
+  color: #22293B;
+}
+.second_line{
+  background: linear-gradient(#0CA6AE, #2E80E3);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
 .hero-content p {
-  font-size: 2vw;
-  color: #666;
-  margin-bottom: 4vh;
+  font-size: 1.8vw;
+  color: #666666;
+  margin-bottom: 5vh;
 }
 
 .cta-button {
-  background-color: #003366;
-  color: #fff;
+  background-color: #0055b3;
+  color: #ffffff;
   border: none;
-  padding: 1rem 2.5rem;
-  font-size: 1.8vw;
+  padding: 1rem 3rem;
+  font-size: 1.6vw;
   cursor: pointer;
-  border-radius: 0.5rem;
+  border-radius: 2rem;
   transition: background-color 0.3s ease;
 }
 
 .cta-button:hover {
-  background-color: #0055b3;
+  background-color: #003366;
 }
 
 .hero-icons {
@@ -43,21 +52,42 @@
   justify-content: space-around;
   margin-top: 6vh;
   flex-wrap: wrap;
-  gap: 3vh;
+  gap: 2rem;
+  position: relative;
 }
 
 .icon-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
-  width: 20%;
+  gap: 1rem;
+  position: relative;
+}
+
+.circle {
+  width: 3vw;
+  height: 3vw;
+  background-color: white;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 0.5rem;
 }
 
 .icon-item img {
-  width: 8vw;
+  width: 2vw;
   height: auto;
+  z-index: 2; /* Ensure the icon is above other elements */
+  position: relative; /* Ensure icons don't overlap each other */
 }
 
-.icon-item p {
-  font-size: 1.6vw;
+.icon-item span {
+  font-size: 1.5vw;
   color: #003366;
-  margin-top: 2vh;
+  z-index: 1;
 }
+
+
+
