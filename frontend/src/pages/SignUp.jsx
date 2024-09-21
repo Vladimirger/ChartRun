@@ -1,16 +1,6 @@
 import React, { useState } from 'react';
 import "../styles/AuthForms.css";
 
-const PrintText = ()=> {
-  return (
-    <div>
-      <h1>Hello, World!</h1>
-      <p>This is some sample text printed by a React component.</p>
-    </div>
-  );
-}
-conmment = comment
-comment2 = comment2
 
 const SignUp = () => {
   const [username, setUsername] = useState("");
@@ -19,7 +9,7 @@ const SignUp = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState(null);
-
+  let a = 4;
   const onSubmit = async (e) => {
     e.preventDefault();
 
@@ -47,8 +37,8 @@ const SignUp = () => {
     try {
       const response = await fetch(url, options);
       if (response.status === 200) {
-        console.log("Sign up successful!");     
-      } 
+        console.log("Sign up successful!");
+      }
     } catch (err) {
       setError("An error occurred. Please try again.");
     }
