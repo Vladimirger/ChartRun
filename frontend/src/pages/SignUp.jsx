@@ -1,6 +1,16 @@
 import React, { useState } from 'react';
 import "../styles/AuthForms.css";
 
+const PrintText = ()=> {
+  return (
+    <div>
+      <h1>Hello, World!</h1>
+      <p>This is some sample text printed by a React component.</p>
+    </div>
+  );
+}
+
+
 const SignUp = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
