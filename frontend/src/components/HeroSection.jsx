@@ -8,8 +8,11 @@ const HeroSection = () => {
         <div className="hero-content">
           <h1><span className="first_line">Design, Build, and Code </span><br /> <span className="second_line">with Flowcharts<span/></span></h1>
           <p>Get done more, write better</p>
-          <button className="cta-button">Try ChartRun</button>
         </div>
+        <button className="try-chartrun-btn">
+            <span className="btn-icon">⚡</span>
+            Try ChartRun
+          </button>
         <div className="hero-icons">
           <div className="icon-item">
             <span className="circle"></span>

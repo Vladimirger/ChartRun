@@ -32,19 +32,26 @@
   margin-bottom: 5vh;
 }
 
-.cta-button {
-  background-color: #0055b3;
-  color: #ffffff;
+.try-chartrun-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.5rem;
+  background-color: #4a90e2;
+  color: white;
   border: none;
-  padding: 1rem 3rem;
-  font-size: 1.6vw;
-  cursor: pointer;
   border-radius: 2rem;
-  transition: background-color 0.3s ease;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
-.cta-button:hover {
-  background-color: #003366;
+.try-chartrun-btn:hover {
+  background-color: #3a7bc8;
+}
+
+.btn-icon {
+  margin-right: 0.5rem;
 }
 
 .hero-icons {
