@@ -10,6 +10,7 @@ const PrintText = ()=> {
   );
 }
 conmment = comment
+comment2 = comment2
 
 const SignUp = () => {
   const [username, setUsername] = useState("");
