@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate for redirection
 import "../styles/AuthForms.css";
-
 
 const SignUp = () => {
   const [username, setUsername] = useState("");
@@ -9,7 +9,9 @@ const SignUp = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState(null);
-  let a = 4;
+
+  const navigate = useNavigate(); // useNavigate hook for redirection
+
   const onSubmit = async (e) => {
     e.preventDefault();
 
@@ -25,7 +27,9 @@ const SignUp = () => {
       confirmPassword
     };
 
-    const url = "http://127.0.0.1:5000/api/sign-up";
+    const signupUrl = "http://127.0.0.1:5000/api/sign-up";
+    const homeUrl = "http://127.0.0.1:5000/api/home"; // URL to check the flow logic
+
     const options = {
       method: "POST",
       headers: {
@@ -35,9 +39,23 @@ const SignUp = () => {
     };
 
     try {
-      const response = await fetch(url, options);
-      if (response.status === 200) {
+      const response = await fetch(signupUrl, options);
+      if (response.status === 201) {
         console.log("Sign up successful!");
+        
+        // Call the /api/home route to handle redirection after signup
+        const homeResponse = await fetch(homeUrl, { method: 'POST' });
+
+        if (homeResponse.status === 200) {
+          const homeData = await homeResponse.json();
+          console.log(homeData.message); // "Welcome!"
+          navigate(homeData.redirectTo); // Redirect to '/home'
+        } else {
+          console.log("Failed to determine redirection after signup");
+        }
+
+      } else {
+        setError("Sign up failed. Please try again.");
       }
     } catch (err) {
       setError("An error occurred. Please try again.");
@@ -69,6 +87,7 @@ const SignUp = () => {
               id="username"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
+              required
             />
           </div>
 
@@ -79,6 +98,7 @@ const SignUp = () => {
               id="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              required
             />
           </div>
 
@@ -91,13 +111,14 @@ const SignUp = () => {
                 id="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                required
               />
               <button
                 type="button"
                 className="toggle-password"
                 onClick={() => setShowPassword(!showPassword)}
               >
-                {showPassword ? "Hide" : "Show"}
+                {showPassword ? "-" : "+"}
               </button>
             </div>
           </div>
@@ -109,12 +130,13 @@ const SignUp = () => {
               id="confirmPassword"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
+              required
             />
           </div>
 
           {/* Terms & Conditions */}
           <div className="form-group checkbox">
-            <input type="checkbox" id="terms" name="terms" />
+            <input type="checkbox" id="terms" name="terms" required />
             <label htmlFor="terms">I accept the Terms & Conditions</label>
           </div>
 

@@ -1,21 +1,23 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../styles/AuthForms.css';
 
 const LoginPage = () => {
-  const [username, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
 
   // Submit handler for form submission
   const onSubmit = async (e) => {
-    e.preventDefault(); // Prevent page refresh
+    e.preventDefault();
 
     const data = {
-        username,
-        password
+      username,
+      password
     };
 
-    const url = 'http://127.0.0.1:5000/api/login';
+    const loginUrl = 'http://127.0.0.1:5000/api/login';
     const options = {
       method: 'POST',
       headers: {
@@ -24,22 +26,39 @@ const LoginPage = () => {
       body: JSON.stringify(data),
     };
 
-    console.log(data);
-    const response = await fetch(url, options);
-    console.log(response.message);
+    try {
+      const loginResponse = await fetch(loginUrl, options);
+      const loginResult = await loginResponse.json();
 
-    if (response.status === 200) {
-      // handle success
-    } else {
-      // handle error
+      if (loginResponse.status === 200) {
+        console.log('Login successful:', loginResult.message);
+
+        // Call flow logic in the backend
+        const flowResponse = await fetch('http://127.0.0.1:5000/api/home', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+
+        const flowResult = await flowResponse.json();
+        if (flowResponse.status === 200 && flowResult.redirectTo) {
+          // Redirect based on backend flow response
+          navigate(flowResult.redirectTo);
+        }
+      } else {
+        console.error('Login failed:', loginResult.message);
+        alert('Login failed: ' + loginResult.message);
+      }
+    } catch (error) {
+      console.error('Error during login:', error);
     }
   };
 
   return (
     <div className="auth-container">
       <div className="auth-form">
-        <h1>LOG IN</h1>
-        {/* Social sign-in buttons */}
+      <h1>Sign in to your account</h1>
         <div className="social-buttons">
           <button className="social-button google">
             <img src="/google-icon.png" alt="Google icon" />
@@ -51,15 +70,14 @@ const LoginPage = () => {
           </button>
         </div>
 
-        {/* Login form */}
         <form onSubmit={onSubmit}>
           <div className="form-group">
             <label htmlFor="username">Username</label>
             <input
-              type="username"
+              type="text"
               id="username"
               value={username}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => setUsername(e.target.value)}
               required
             />
           </div>
@@ -79,7 +97,7 @@ const LoginPage = () => {
                 className="toggle-password"
                 onClick={() => setShowPassword(!showPassword)}
               >
-                {showPassword ? 'Hide' : 'Show'}
+                {showPassword ? '-' : '+'}
               </button>
             </div>
           </div>
