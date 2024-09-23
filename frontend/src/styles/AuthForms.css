@@ -4,7 +4,7 @@ body, html {
   margin: 0;
   padding: 0;
   height: 100%;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 .auth-container {
@@ -13,6 +13,7 @@ body, html {
   align-items: center;
   height: 100vh;
   background-color: #f5f5f5;
+  overflow: hidden;
 }
 
 .auth-form {

@@ -19,19 +19,19 @@ const HeroSection = () => {
           <div className="hero-features">
             <div className="feature-item">
               <div className="icon-wrapper">
-                <img src="src/assets/speed.png" alt="Speed icon" />
+                <img src="src/assets/landing/speed.png" alt="Speed icon" />
               </div>
               <span>Code Visually with Speed</span>
             </div>
             <div className="feature-item">
               <div className="icon-wrapper">
-                <img src="src/assets/workflow.png" alt="Workflow icon" />
+                <img src="src/assets/landing/workflow.png" alt="Workflow icon" />
               </div>
               <span>Automate Complex Workflows</span>
             </div>
             <div className="feature-item">
               <div className="icon-wrapper">
-                <img src="src/assets/coding.png" alt="Process icon" />
+                <img src="src/assets/landing/coding.png" alt="Process icon" />
               </div>
               <span>Streamline Development Process</span>
             </div>
