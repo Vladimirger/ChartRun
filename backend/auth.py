@@ -11,26 +11,20 @@ auth = Blueprint('auth', __name__)
 
 @auth.route('/api/login', methods=['POST'])
 def login():
-    # user = User(username="johndoe", email="john@example.com", password="secure password")
-    # db.session.add(user)
-    # db.session.commit()
-    # problem = Problem(name="Two Sum", solved=False, last="", user_id="johndoe")
-    # db.session.add(problem)
-    # db.session.commit()
-    # submission = Submission(number=1, work=True, code="print('Hello World')", problem_name="Two Sum", user_id="johndoe")
-    # db.session.add(submission)
-    # db.session.commit()
-
     data = request.get_json()
     username = data['username']
     password = data['password']
+
     if not username or not password:
         return jsonify({'message': 'not enough parameters'}), 400
+
     found_user = User.query.filter_by(username=username).first()
+
     if not found_user:
         return jsonify({'message': 'invalid username'}), 400
+
     if found_user.password == password:
-        session['username'] = found_user.username
+        session['username'] = found_user.username  # Set session for the logged-in user
         return jsonify({'message': 'login successful'}), 200
     else:
         return jsonify({'message': 'wrong password'}), 400
@@ -46,17 +40,18 @@ def signup():
     confirm_password = data.get('confirmPassword')
     email = data.get('email')
     
-    
     if not username or not password or not email or not confirm_password or confirm_password != password:
         return jsonify({'message': 'Invalid input or passwords do not match'}), 400
 
-    
     new_user = User(username=username, email=email, password=password)
     
     try:
-        # Add and commit new user
+        
         db.session.add(new_user)
         db.session.commit()
+        
+        # Set session for the new user
+        session['username'] = new_user.username  # Make sure session is set correctly
         
         # Load problems from file and add them to the database
         problems_file_path = os.path.join(os.path.dirname(__file__), 'problems', 'problems.json')
@@ -78,9 +73,7 @@ def signup():
         # Commit all problems
         db.session.commit()
         
-        # Set session for the new user
-        session['username'] = new_user.username
-        
+        # Return success message
         return jsonify({'message': 'Signup successful'}), 201
     
     except Exception as e:

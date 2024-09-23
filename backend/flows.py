@@ -1,10 +1,8 @@
-from flask import Blueprint,request, flash, jsonify
-from __init__ import db
-import json
+from flask import Blueprint, request, jsonify, session
 
 flows = Blueprint('flows', __name__)
 
-
-@flows.route('/api/home', methods=['GET', 'POST'])
+@flows.route('/api/home', methods=['POST'])
 def home():
-    pass
+    return jsonify({'message': 'Welcome!', 'redirectTo': '/home'}), 200
+
