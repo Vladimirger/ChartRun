@@ -1,88 +1,106 @@
 import json
-from flask import Blueprint
-from flask import jsonify, request, session
+from flask import Blueprint, jsonify, request, session
 from __init__ import db
 from models import User, Problem
 import os
+import re
+import bcrypt
 
 
 auth = Blueprint('auth', __name__)
 
+def is_valid_email(email):
+    email_regex = re.compile(r"[^@]+@[^@]+\.[^@]+")
+    return email_regex.match(email)
 
 @auth.route('/api/login', methods=['POST'])
 def login():
     data = request.get_json()
-    username = data['username']
-    password = data['password']
+    username = data.get('username')
+    password = data.get('password')
 
     if not username or not password:
-        return jsonify({'message': 'not enough parameters'}), 400
+        return jsonify({'message': 'Username and password are required'}), 400
 
     found_user = User.query.filter_by(username=username).first()
 
     if not found_user:
-        return jsonify({'message': 'invalid username'}), 400
+        return jsonify({'message': 'Invalid username'}), 400
 
-    if found_user.password == password:
-        session['username'] = found_user.username  # Set session for the logged-in user
-        return jsonify({'message': 'login successful'}), 200
+    # Check the hashed password
+    if bcrypt.checkpw(password.encode('utf-8'), found_user.password.encode('utf-8')):
+        session['username'] = found_user.username
+        return jsonify({'message': 'Login successful'}), 200
     else:
-        return jsonify({'message': 'wrong password'}), 400
+        return jsonify({'message': 'Incorrect password'}), 400
 
 
 @auth.route('/api/sign-up', methods=['POST'])
 def signup():
     data = request.get_json()
-    print("Received data:", data)
-    
     username = data.get('username')
     password = data.get('password')
     confirm_password = data.get('confirmPassword')
     email = data.get('email')
-    
-    if not username or not password or not email or not confirm_password or confirm_password != password:
-        return jsonify({'message': 'Invalid input or passwords do not match'}), 400
 
-    new_user = User(username=username, email=email, password=password)
-    
+    # Validate input
+    if not username or not password or not email or not confirm_password:
+        return jsonify({'message': 'All fields are required'}), 400
+
+    if len(username) < 3:
+        return jsonify({'message': 'Username must be at least 3 characters long'}), 400
+
+    if len(password) < 6:
+        return jsonify({'message': 'Password must be at least 6 characters long'}), 400
+
+    if password != confirm_password:
+        return jsonify({'message': 'Passwords do not match'}), 400
+
+    if not is_valid_email(email):
+        return jsonify({'message': 'Invalid email format'}), 400
+
+    if User.query.filter_by(username=username).first():
+        return jsonify({'message': 'Username already exists'}), 400
+
+    if User.query.filter_by(email=email).first():
+        return jsonify({'message': 'Email already in use'}), 400
+
+    # Hash the password before saving it
+    hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
+
+    new_user = User(username=username, email=email, password=hashed_password.decode('utf-8'))
+
     try:
-        
         db.session.add(new_user)
         db.session.commit()
-        
-        # Set session for the new user
-        session['username'] = new_user.username  # Make sure session is set correctly
-        
+
+        session['username'] = new_user.username
+
         # Load problems from file and add them to the database
         problems_file_path = os.path.join(os.path.dirname(__file__), 'problems', 'problems.json')
-        print("Problems file path:", problems_file_path)
-
+        
         with open(problems_file_path) as data_file:
             problems_data = json.load(data_file)
             for problem_name, problem_details in problems_data.items():
-                print("Adding problem:", problem_name)
-                # Extract details from problem_details
                 problem = Problem(
-                    name=problem_name,  # Use the problem name from JSON
-                    solved=False,       # Default value; adjust as needed
-                    last_code="",       # Default value; adjust as needed
+                    name=problem_name,
+                    solved=False,
+                    last_code="",
                     user_id=new_user.username
                 )
                 db.session.add(problem)
 
-        # Commit all problems
         db.session.commit()
         
-        # Return success message
         return jsonify({'message': 'Signup successful'}), 201
     
     except Exception as e:
-        # Rollback in case of error
         db.session.rollback()
         print("Error:", str(e))
-        return jsonify({'message': str(e)}), 400
+        return jsonify({'message': 'An error occurred during signup'}), 400
+
 
 @auth.route('/api/logout')
 def logout():
     session.pop('username', None)
-
+    return jsonify({'message': 'Logout successful'}), 200

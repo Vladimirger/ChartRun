@@ -5,7 +5,7 @@ class User(db.Model):
     
     username = db.Column(db.String(50), primary_key=True, unique=True, nullable=False)
     email = db.Column(db.String(50), unique=True, nullable=False)
-    password = db.Column(db.String(50), nullable=False)
+    password = db.Column(db.String(100), nullable=False)
 
     # Define relationships
     problems = db.relationship('Problem', back_populates='user', lazy=True)
