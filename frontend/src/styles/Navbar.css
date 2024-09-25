@@ -9,13 +9,14 @@
     font-family: "Inter", sans-serif;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     position: sticky;
+    height: 7vh;
     top: 0;
     z-index: 1000;
 }
 
 .logo img {
-    height: 8vh;
-    width: 20vw;
+    margin-top: 10%;
+    height: 6vh;
 }
 
 .nav-links {
