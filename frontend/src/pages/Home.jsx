@@ -1,6 +1,8 @@
-import React from "react";
-import "../styles/Home.css";
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFolder, faFile, faStar, faFileCirclePlus, faCartShopping, faGear, faCircleQuestion, faRightToBracket } from '@fortawesome/free-solid-svg-icons';
 import { Link } from "react-router-dom";
+import "../styles/Home.css";
 
 const Home = () => {
   const categories = [
@@ -36,20 +38,51 @@ const Home = () => {
   return (
     <div className="home">
       <aside className="sidebar">
-        <div className="logo">
+        <div className="logo1">
           <img src="/src/assets/Logo.png" alt="Chartun Logo" />
         </div>
         <nav>
           <ul>
-            <li><Link to="/courses">Courses</Link></li>
-            <li><Link to="/blank">Blank</Link></li>
-            <li><Link to="/favorites">Favorites</Link></li>
+            <li>
+              <FontAwesomeIcon icon={faFolder} />
+              <Link to="/courses">Courses</Link>
+            </li>
+            <li>
+              <FontAwesomeIcon icon={faFile} />
+              <Link to="/blank">Blank</Link>
+            </li>
+            <li>
+              <FontAwesomeIcon icon={faStar} />
+              <Link to="/favorites">Favorites</Link>
+            </li>
           </ul>
         </nav>
+        <div className="sidebar-actions">
+          <button className="new-document">
+            <FontAwesomeIcon icon={faFileCirclePlus} />
+            New Document
+          </button>
+          <button className="buy">
+            <FontAwesomeIcon icon={faCartShopping} />
+            Buy
+          </button>
+        </div>
         <div className="sidebar-footer">
-          <button className="new-document">New Document</button>
-          <button className="buy">Buy</button>
-      </div>
+          <ul>
+            <li>
+              <FontAwesomeIcon icon={faGear} />
+              <Link to="/options">Options</Link>
+            </li>
+            <li>
+              <FontAwesomeIcon icon={faCircleQuestion} />
+              <Link to="/support">Support</Link>
+            </li>
+          </ul>
+          <button className="login">
+            <FontAwesomeIcon icon={faRightToBracket} />
+            Log In
+          </button>
+        </div>
       </aside>
       <main className="content">
         {categories.map((category, index) => (
