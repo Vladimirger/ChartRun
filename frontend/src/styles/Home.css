@@ -32,7 +32,7 @@
 }
 
 .sidebar nav ul li {
-  margin-bottom: 16px;
+  margin-bottom: 0.2vw;
 }
 
 .sidebar nav ul li a {
@@ -50,13 +50,12 @@
   color: #007bff;
 }
 
-.sidebar nav ul li .fa-icon {
-  margin-right: 12px;
-  width: 20px;
-}
-
 .sidebar-actions {
   margin: 24px 0;
+}
+
+.sidebar-icon{
+ padding-right: 0.5vw;
 }
 
 .new-document,
