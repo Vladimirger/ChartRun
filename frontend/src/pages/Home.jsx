@@ -44,42 +44,52 @@ const Home = () => {
         <nav>
           <ul>
             <li>
-              <FontAwesomeIcon icon={faFolder} />
-              <Link to="/courses">Courses</Link>
+              <Link to="/courses">
+                <FontAwesomeIcon className="sidebar-icon" icon={faFolder} />
+                Courses
+              </Link>
             </li>
             <li>
-              <FontAwesomeIcon icon={faFile} />
-              <Link to="/blank">Blank</Link>
+              <Link to="/blank">
+                <FontAwesomeIcon className="sidebar-icon" icon={faFile} />
+                Blank 
+              </Link>
             </li>
             <li>
-              <FontAwesomeIcon icon={faStar} />
-              <Link to="/favorites">Favorites</Link>
+              <Link to="/favorites">
+                <FontAwesomeIcon className="sidebar-icon" icon={faStar} />
+                Favorites
+              </Link>
             </li>
           </ul>
         </nav>
         <div className="sidebar-actions">
           <button className="new-document">
-            <FontAwesomeIcon icon={faFileCirclePlus} />
+            <FontAwesomeIcon className="sidebar-icon" icon={faFileCirclePlus} />
             New Document
           </button>
           <button className="buy">
-            <FontAwesomeIcon icon={faCartShopping} />
+            <FontAwesomeIcon className="sidebar-icon" icon={faCartShopping} />
             Buy
           </button>
         </div>
         <div className="sidebar-footer">
           <ul>
             <li>
-              <FontAwesomeIcon icon={faGear} />
-              <Link to="/options">Options</Link>
+              <Link to="/options">
+                <FontAwesomeIcon className="sidebar-icon" icon={faGear} />
+                Options
+              </Link>
             </li>
             <li>
-              <FontAwesomeIcon icon={faCircleQuestion} />
-              <Link to="/support">Support</Link>
+              <Link to="/support">
+                <FontAwesomeIcon className="sidebar-icon" icon={faCircleQuestion} />
+                Support
+              </Link>
             </li>
           </ul>
           <button className="login">
-            <FontAwesomeIcon icon={faRightToBracket} />
+            <FontAwesomeIcon className="sidebar-icon" icon={faRightToBracket} />
             Log In
           </button>
         </div>
