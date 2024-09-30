@@ -148,7 +148,7 @@
 }
 
 .category h2 {
-  font-size: 2rem;
+  font-size: 2vw;
   margin-bottom: 2rem;
   font-weight: 600;
   color: #333;
@@ -187,7 +187,7 @@
 
 .item span {
   margin-top: 2vw;
-  font-size: 5;
+  font-size: 1vw;
   text-align: center;
   font-weight: 500;
   color: #333;
