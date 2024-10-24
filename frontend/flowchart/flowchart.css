@@ -1,0 +1,79 @@
+html{
+    overflow: hidden;
+}
+.draggable {
+    position: absolute;
+    border: 1px solid #000;
+    cursor: move;
+    background-color: #fff;
+}
+#main{
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+#nav{
+    height: 4%;
+    width: 100%;
+    position: absolute;
+    top: 2%;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+}
+#nav-left{
+    height: 100%;
+    width: 12%;
+    margin-left: 2%;
+    display: flex;
+    justify-content: space-between;
+}
+#nav-mid{
+    height: 100%;
+    width: 12%;
+    display: flex;
+    justify-content: space-between;
+}
+.nav-mid-button{
+    height: 100%;
+    width: 46%;
+}
+#nav-right{
+    height: 100%;
+    width: 12%;
+    display: flex;
+    justify-content: right;
+}
+#body{
+    position: absolute;
+    top: 6%;
+    height: 94%;
+    width: 100%;
+}
+#body-left{
+    height: 100%;
+    width: 50%;
+    position: absolute;
+}
+#body-right{
+    height: 100%;
+    width: 50%;
+    position: absolute;
+    left: 50%;
+}
+#canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    transform: scale(1);
+    transform-origin: center center;
+    transition: transform 0.3s ease;
+}
