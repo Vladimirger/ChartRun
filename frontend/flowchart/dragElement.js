@@ -7,8 +7,12 @@ const addEnd = document.getElementById('addEnd');
 const zoomInButton = document.getElementById('zoomIn');
 const zoomOutButton = document.getElementById('zoomOut');
 
+let start = false;
+
 let properties = [];
 let id = 1;
+let curr = [];
+const connections = new Map();
 
 let scale = 1;
 const scaleStep = 0.1;
@@ -25,7 +29,9 @@ addParallelogramButton.addEventListener('click', () => {
     createParallelogram();
 })
 addStart.addEventListener('click', () => {
+    if(start)return;
     createOval(1);
+    start = true;
 })
 addEnd.addEventListener('click', () => {
     createOval(2);
@@ -36,7 +42,20 @@ zoomInButton.addEventListener('click', () => {
 zoomOutButton.addEventListener('click', () => {
     setScale(scale - scaleStep);
 });
+document.addEventListener('click', function(event) {
+    if (!event.target.classList.contains('circle')) {
+        curr = [];
+    }
+});
+function addToConnections(key, value){
+    if (!connections.has(key)) {
+        // If the key doesn't exist, create a new Set for it
+        connections.set(key, new Set());
+    }
 
+    // Add the value to the Set associated with the key
+    connections.get(key).add(value);
+}
 function addNewElement(type){
     properties.push([]);
     properties[id-1].push(id);
@@ -46,6 +65,101 @@ function addNewElement(type){
     id++;
 }
 
+function addConnection(s){
+    let num = 0;
+    let pos = "";
+    for(let i = 0; i < s.length; i++){
+        if(s[i] === ' ')continue;
+        if(pos.length === i){
+            pos += s[i];
+        }else{
+            num *= 10;
+            num += s[i] - '0';
+        }
+    }
+
+    if (curr.length === 2) {
+        addToConnections(curr[0], num);
+        console.log(properties);
+        curr = [];
+    } else {
+        curr.push(num);
+        curr.push(pos);
+    }
+}
+function createCircle(rect, type){
+    const circle = document.createElement('div');
+    circle.className = 'circle';
+    rect.appendChild(circle);
+    Object.assign(circle.style, {
+        position: 'absolute',
+        borderRadius: '50%',
+        width: '20px',
+        height: '20px',
+        backgroundColor: 'red'
+    });
+    //1 - top; 2 - bottom; 3 - left; 4 - right
+    if(type === 1){
+        Object.assign(circle.style, {
+            top: '-10px', /* Adjust for half the circle's height */
+            left: '50%',
+            transform: 'translateX(-50%)'
+        })
+    }else if(type === 2){
+        Object.assign(circle.style, {
+            bottom: '-10px', /* Adjust for half the circle's height */
+            left: '50%',
+            transform: 'translateX(-50%)'
+        })
+    }else if(type === 3){
+        Object.assign(circle.style, {
+            left: '-10px', /* Adjust for half the circle's height */
+            top: '50%',
+            transform: 'translateY(-50%)'
+        })
+    }else if(type === 4){
+        Object.assign(circle.style, {
+            top: '50%',
+            right: '-10px',
+            transform: 'translateY(-50%)'
+        })
+    }
+    circle.addEventListener('click', (e) => {
+        addConnection(circle.id);
+    })
+    return circle;
+}
+function addCircles(type, rect){
+    if(type === 2){
+        const t = createCircle(rect, 1);
+        const l = createCircle(rect, 3);
+        const r = createCircle(rect, 4);
+        t.style.left = '0';
+        l.style.top = '100%';
+        r.style.left = '100%';
+        r.style.top = '0';
+        t.id = `top ${id-1}`;
+        l.id = `left ${id-1}`;
+        r.id = `right ${id-1}`;
+    }else if(type === 5){
+        const t = createCircle(rect, 1);
+        t.id = `top ${id-1}`;
+    }else if(type === 4){
+        const b = createCircle(rect, 2);
+        b.id = `bottom ${id-1}`;
+    }else{
+        const t = createCircle(rect, 1);
+        const b = createCircle(rect, 2);
+        t.id = `top ${id-1}`;
+        b.id = `bottom ${id-1}`;
+        if(type === 3){
+            t.style.transform = 'skew(20deg)';
+            b.style.transform = 'skew(20deg)';
+            t.style.left = '40%';
+            b.style.left = '40%';
+        }
+    }
+}
 function setScale(newScale) {
     scale = Math.min(Math.max(newScale, minScale), maxScale);
     canvas.style.transform = `scale(${scale})`;
@@ -61,6 +175,7 @@ function createRectangle() {
     rect.style.height = '100px';
     rect.style.left = '50px';
     rect.style.top = '50px';
+    addCircles(1, rect);
     canvas.appendChild(rect);
     makeDraggable(rect);
     const text = document.createElement('input');
@@ -81,6 +196,7 @@ function createRhombus() {
     rect.style.left = '50px';
     rect.style.top = '50px';
     rect.style.transform = 'rotate(45deg)';
+    addCircles(2, rect);
     canvas.appendChild(rect);
     makeDraggable(rect);
     const text = document.createElement('input');
@@ -101,6 +217,7 @@ function createParallelogram() {
     rect.style.left = '50px';
     rect.style.top = '50px';
     rect.style.transform = 'skew(-20deg)';
+    addCircles(3, rect);
     canvas.appendChild(rect);
     makeDraggable(rect);
     const text = document.createElement('input');
@@ -123,12 +240,16 @@ function createOval(type){
     const text = document.createElement('p');
     if(type === 1){
         text.innerText = 'Start';
-        rect.id = `${id}`
+        rect.id = `0`
+        addCircles(4, rect);
         addNewElement(4);
+        properties[id-2][0] = 0;
     }else{
         text.innerText = 'End';
-        rect.id = `${id}`
+        rect.id = `-1`
+        addCircles(5, rect);
         addNewElement(5);
+        properties[id-2][0] = -1;
     }
     rect.appendChild(text);
 }
