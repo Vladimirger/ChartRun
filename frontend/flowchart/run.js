@@ -4,7 +4,10 @@ function prep(){
 		adjacencyList.push([]);
 	}
 	for(let [key, value] of connections) {
-		adjacencyList[key].push(value);
+		
+		for(let i of value){
+			adjacencyList[key].push(i);
+		}
 	}
 	let json = {
 		properties: properties,
@@ -13,7 +16,6 @@ function prep(){
 	send(json)
 }
 function send(json){
-	console.log("OBICHAM");
 	fetch('http://127.0.0.1:5000/api/data', {
 	    method: 'POST',  // Use POST method
 	    headers: {

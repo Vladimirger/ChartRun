@@ -11,8 +11,13 @@ def create_app():
     app.config['SECRET_KEY'] = 'acibasc3747472njcoaj90cvhqubc392hc29c3298g'
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
     
-    # Enable CORS and allow credentials
-    CORS(app, supports_credentials=True)
+    allowed_origins = [
+    "http://localhost:5173",
+    "http://127.0.0.1:5000",
+    "http://127.0.0.1:5500",
+    ]
+    
+    CORS(app, resources={r"/*": {"origins": allowed_origins}})
 
     db.init_app(app)
 

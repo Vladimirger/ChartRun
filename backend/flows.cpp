@@ -11,9 +11,10 @@ vector<tuple<int, int, string>> properties;
 int main(){
     string json_input;
     getline(cin, json_input);
+    cout << json_input << endl;
     try{
         nlohmann::json json_data = nlohmann::json::parse(json_input);
-        adj = json_data["adjencyList"].get<vector<vector<int>>>();
+        adj = json_data["adjacencyList"].get<vector<vector<int>>>();
         for(auto& item : json_data["properties"]){
             int first = item[0];
             int second = item[1];
