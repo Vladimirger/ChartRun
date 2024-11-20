@@ -14,10 +14,9 @@ def receive_data():
     data_str = json.dumps(data)
 
    
-    exe_path = os.path.join(os.getcwd(), "flows.exe")
     try:
         result = subprocess.run(
-            [exe_path],
+            ["flows.exe"],
             input=data_str,
             text=True,
             capture_output=True

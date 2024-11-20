@@ -240,16 +240,16 @@ function createOval(type){
     const text = document.createElement('p');
     if(type === 1){
         text.innerText = 'Start';
-        rect.id = `0`
-        addCircles(4, rect);
+        rect.id = `${id}`
+        
         addNewElement(4);
-        properties[id-2][0] = 0;
+        addCircles(4, rect);
     }else{
         text.innerText = 'End';
-        rect.id = `-1`
-        addCircles(5, rect);
+        rect.id = `${id}`
+        
         addNewElement(5);
-        properties[id-2][0] = -1;
+        addCircles(5, rect);
     }
     rect.appendChild(text);
 }
