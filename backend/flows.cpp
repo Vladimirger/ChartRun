@@ -6,8 +6,9 @@
 #include <tuple>
 #include <set>
 #include <utility>
+#include <map>
 #include "json.hpp"
-#include "compile.hpp"
+//#include "compile.hpp"
 using namespace std;
 
 int main(){
@@ -22,10 +23,9 @@ int main(){
         adj = json_data["adjacencyList"].get<vector<vector<int>>>();
         properties.resize(adj.size());
         for(auto& item : json_data["properties"]){
-            int first = item[0];
-            int second = item[1];
-            string third = item[2];
-            if(first == -1)continue;
+            int first = item[0]; // id
+            int second = item[1]; // type
+            string third = item[2]; // what is written
             
             properties[first] =  {second, third};
         }

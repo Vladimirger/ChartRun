@@ -47,14 +47,16 @@ document.addEventListener('click', function(event) {
         curr = [];
     }
 });
-function addToConnections(key, value){
+function addToConnections(key, value, pos1){
     if (!connections.has(key)) {
         // If the key doesn't exist, create a new Set for it
         connections.set(key, new Set());
     }
 
     // Add the value to the Set associated with the key
-    connections.get(key).add(value);
+    console.log(pos1);
+    if(pos1 == "left")connections.get(key).add(value * 10000);
+    else connections.get(key).add(value);
 }
 function addNewElement(type){
     properties.push([]);
@@ -79,7 +81,7 @@ function addConnection(s){
     }
 
     if (curr.length === 2) {
-        addToConnections(curr[0], num);
+        addToConnections(curr[0], num, curr[1]);
         console.log(properties);
         curr = [];
     } else {
